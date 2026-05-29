@@ -1,663 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>GUURIX | Logic In Motion</title>
-
-  <!-- FONT -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-  <!-- ICONS -->
-  <script src="https://kit.fontawesome.com/a2d9d5a64f.js" crossorigin="anonymous"></script>
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-  <!-- PARTICLES -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:'Orbitron',sans-serif;
-      background:#050816;
-      color:white;
-      overflow-x:hidden;
-    }
-
-    /* PARTICLES */
-
-    #particles-js{
-      position:fixed;
-      width:100%;
-      height:100%;
-      z-index:-5;
-      top:0;
-      left:0;
-      background:#050816;
-    }
-
-    /* CURSOR GLOW */
-
-    .cursor-glow{
-      width:300px;
-      height:300px;
-      background:rgba(0,195,255,0.15);
-      position:fixed;
-      border-radius:50%;
-      filter:blur(100px);
-      pointer-events:none;
-      z-index:-1;
-      transform:translate(-50%,-50%);
-    }
-
-    /* NAVBAR */
-
-    nav{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      padding:20px 8%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      z-index:1000;
-
-      background:rgba(255,255,255,0.03);
-      backdrop-filter:blur(12px);
-
-      border-bottom:1px solid rgba(255,255,255,0.08);
-    }
-
-    .logo{
-      font-size:2rem;
-      font-weight:900;
-      letter-spacing:4px;
-    }
-
-    .gold{
-      color:#d4af37;
-    }
-
-    .cyan{
-      color:#00c3ff;
-    }
-
-    nav ul{
-      display:flex;
-      list-style:none;
-      gap:40px;
-    }
-
-    nav ul li a{
-      text-decoration:none;
-      color:white;
-      transition:0.4s;
-      position:relative;
-    }
-
-    nav ul li a:hover{
-      color:#00c3ff;
-    }
-
-    /* HERO */
-
-    .hero{
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      position:relative;
-      overflow:hidden;
-      padding:0 8%;
-    }
-
-    .hero-content{
-      text-align:center;
-      position:relative;
-      z-index:5;
-    }
-
-    .hero h1{
-      font-size:8rem;
-      letter-spacing:10px;
-      margin-bottom:20px;
-
-      text-shadow:
-      0 0 10px rgba(0,195,255,0.5),
-      0 0 30px rgba(0,195,255,0.3);
-    }
-
-    .motto{
-      font-size:1.5rem;
-      color:#d4af37;
-      letter-spacing:5px;
-      margin-bottom:25px;
-    }
-
-    .hero p{
-      max-width:800px;
-      margin:auto;
-      line-height:1.9;
-      color:#aaa;
-      margin-bottom:40px;
-      font-size:1.1rem;
-    }
-
-    .buttons{
-      display:flex;
-      justify-content:center;
-      gap:20px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:15px 35px;
-      border:none;
-      border-radius:50px;
-      cursor:pointer;
-      font-family:'Orbitron',sans-serif;
-      transition:0.4s;
-      font-weight:bold;
-    }
-
-    .btn-primary{
-      background:#00c3ff;
-      color:white;
-
-      box-shadow:
-      0 0 20px #00c3ff,
-      0 0 50px rgba(0,195,255,0.5);
-    }
-
-    .btn-primary:hover{
-      transform:translateY(-5px) scale(1.05);
-    }
-
-    .btn-secondary{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.15);
-      color:white;
-    }
-
-    .btn-secondary:hover{
-      background:white;
-      color:black;
-    }
-
-    /* FLOATING HERO ELEMENTS */
-
-    .floating-card{
-      position:absolute;
-      width:220px;
-      padding:25px;
-
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
-
-      backdrop-filter:blur(10px);
-
-      border-radius:25px;
-
-      box-shadow:
-      0 0 20px rgba(0,0,0,0.3);
-
-      z-index:3;
-    }
-
-    .card1{
-      top:20%;
-      left:5%;
-
-      animation:float1 6s infinite ease-in-out;
-    }
-
-    .card2{
-      bottom:20%;
-      right:5%;
-
-      animation:float2 7s infinite ease-in-out;
-    }
-
-    @keyframes float1{
-
-      0%{
-        transform:translateY(0px);
-      }
-
-      50%{
-        transform:translateY(-20px);
-      }
-
-      100%{
-        transform:translateY(0px);
-      }
-
-    }
-
-    @keyframes float2{
-
-      0%{
-        transform:translateY(0px);
-      }
-
-      50%{
-        transform:translateY(20px);
-      }
-
-      100%{
-        transform:translateY(0px);
-      }
-
-    }
-
-    /* ROBOT + HUMAN */
-
-    .robot-hand{
-      position:absolute;
-      width:500px;
-      left:-5%;
-      top:15%;
-      opacity:0.15;
-      z-index:1;
-    }
-
-    .human-hand{
-      position:absolute;
-      width:500px;
-      right:-5%;
-      top:20%;
-      opacity:0.15;
-      z-index:1;
-    }
-
-    /* SECTION */
-
-    section{
-      padding:120px 8%;
-      position:relative;
-      z-index:5;
-    }
-
-    .section-title{
-      text-align:center;
-      font-size:3rem;
-      margin-bottom:70px;
-    }
-
-    /* SERVICES */
-
-    .services{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:30px;
-    }
-
-    .service-card{
-
-      background:rgba(255,255,255,0.04);
-
-      border:1px solid rgba(255,255,255,0.08);
-
-      padding:40px;
-
-      border-radius:30px;
-
-      backdrop-filter:blur(10px);
-
-      transition:0.4s;
-    }
-
-    .service-card:hover{
-      transform:translateY(-10px);
-
-      border-color:#00c3ff;
-
-      box-shadow:
-      0 0 30px rgba(0,195,255,0.2);
-    }
-
-    .service-card i{
-      font-size:2rem;
-      color:#00c3ff;
-      margin-bottom:20px;
-    }
-
-    .service-card h3{
-      margin-bottom:15px;
-      color:#d4af37;
-    }
-
-    .service-card p{
-      line-height:1.8;
-      color:#aaa;
-    }
-
-    /* CONTACT */
-
-    .contact-box{
-
-      max-width:700px;
-      margin:auto;
-
-      background:rgba(255,255,255,0.04);
-
-      padding:50px;
-
-      border-radius:30px;
-
-      backdrop-filter:blur(10px);
-
-      border:1px solid rgba(255,255,255,0.08);
-
-      text-align:center;
-    }
-
-    .contact-box p{
-      margin:15px 0;
-      color:#ccc;
-    }
-
-    footer{
-      padding:30px;
-      text-align:center;
-      border-top:1px solid rgba(255,255,255,0.08);
-      color:#666;
-    }
-
-    /* MOBILE */
-
-    @media(max-width:768px){
-
-      nav ul{
-        display:none;
-      }
-
-      .hero h1{
-        font-size:4rem;
-      }
-
-      .floating-card{
-        display:none;
-      }
-
-      .robot-hand,
-      .human-hand{
-        width:250px;
-      }
-
-      .section-title{
-        font-size:2rem;
-      }
-
-    }
-
-  </style>
-
-</head>
-
-<body>
-
-  <!-- PARTICLES -->
-
-  <div id="particles-js"></div>
-
-  <!-- CURSOR GLOW -->
-
-  <div class="cursor-glow"></div>
-
-  <!-- NAVBAR -->
-
-  <nav>
-
-    <div class="logo">
-      <span class="gold">GUURI</span><span class="cyan">X</span>
-    </div>
-
-    <ul>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-
-  </nav>
-
-  <!-- HERO -->
-
-  <section class="hero">
-
-    <!-- HANDS -->
-
-    <img
-    src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop"
-    class="robot-hand">
-
-    <img
-    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
-    class="human-hand">
-
-    <!-- FLOATING CARDS -->
-
-    <div class="floating-card card1">
-      <h3 class="cyan">AI SYSTEMS</h3>
-      <p>Future intelligent automation.</p>
-    </div>
-
-    <div class="floating-card card2">
-      <h3 class="gold">WEB & MOBILE</h3>
-      <p>Premium digital experiences.</p>
-    </div>
-
-    <!-- HERO CONTENT -->
-
-    <div class="hero-content">
-
-      <h1>
-        <span class="gold">GUURI</span><span class="cyan">X</span>
-      </h1>
-
-      <div class="motto">
-        LOGIC IN MOTION
-      </div>
-
-      <p>
-        GUURIX creates futuristic software systems,
-        mobile applications, enterprise technology,
-        and intelligent digital experiences for the next generation.
-      </p>
-
-      <div class="buttons">
-
-        <button class="btn btn-primary">
-          Explore Services
-        </button>
-
-        <button class="btn btn-secondary">
-          Contact Us
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- SERVICES -->
-
-  <section id="services">
-
-    <h2 class="section-title">
-      Our Services
-    </h2>
-
-    <div class="services">
-
-      <div class="service-card">
-        <i class="fas fa-code"></i>
-
-        <h3>Web Development</h3>
-
-        <p>
-          Modern responsive websites and web platforms.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <i class="fas fa-mobile-alt"></i>
-
-        <h3>Mobile Apps</h3>
-
-        <p>
-          Android and iOS applications with premium experiences.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <i class="fas fa-brain"></i>
-
-        <h3>AI Solutions</h3>
-
-        <p>
-          Intelligent automation and AI-powered systems.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <i class="fas fa-server"></i>
-
-        <h3>Enterprise Systems</h3>
-
-        <p>
-          Advanced business infrastructure and scalable software.
-        </p>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- CONTACT -->
-
-  <section id="contact">
-
-    <h2 class="section-title">
-      Contact GUURIX
-    </h2>
-
-    <div class="contact-box">
-
-      <p><strong>Guuroh Christina</strong></p>
-
-      <p>Founder & CEO</p>
-
-      <p>guurohchristina@gmail.com</p>
-
-      <p>WhatsApp: +233 551218719</p>
-
-      <p>Calls: 0507585070</p>
-
-      <p>www.guurix.com</p>
-
-    </div>
-
-  </section>
-
-  <!-- FOOTER -->
-
-  <footer>
-    © 2026 GUURIX — Logic In Motion
-  </footer>
-
-  <script>
-
-    /* PARTICLES */
-
-    particlesJS("particles-js", {
-
-      particles: {
-
-        number: {
-          value: 80
-        },
-
-        color: {
-          value: "#00c3ff"
-        },
-
-        shape: {
-          type: "circle"
-        },
-
-        opacity: {
-          value: 0.5
-        },
-
-        size: {
-          value: 3
-        },
-
-        line_linked: {
-
-          enable: true,
-          distance: 150,
-          color: "#00c3ff",
-          opacity: 0.3,
-          width: 1
-
-        },
-
-        move: {
-          enable: true,
-          speed: 2
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guurix — Logic In Motion</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e3edf7 0%, #cbdbe5 100%);
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent-blue: #00b4d8;
+            --accent-gold: #d4af37;
+            --dark-btn: #0f172a;
         }
 
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    });
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
 
-    /* CURSOR GLOW */
+        /* Main Workspace Glass Container */
+        .workspace-container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
 
-    const glow = document.querySelector('.cursor-glow');
+        /* Navigation Bar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
 
-    document.addEventListener('mousemove', (e)=>{
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-      glow.style.left = e.clientX + 'px';
-      glow.style.top = e.clientY + 'px';
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
 
-    });
+        .logo-text span {
+            color: var(--accent-blue);
+        }
 
-    /* GSAP HERO ANIMATION */
+        /* Center Glass Pill Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--glass-border);
+            padding: 6px 8px;
+            border-radius: 100px;
+            display: flex;
+            gap: 4px;
+        }
 
-    gsap.from(".hero-content",{
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+        }
 
-      opacity:0,
-      y:100,
-      duration:1.5
+        nav a.active, nav a:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
 
-    });
+        .cta-btn {
+            background: var(--dark-btn);
+            color: #ffffff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
 
-    gsap.from(".floating-card",{
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            background: #1e293b;
+        }
 
-      opacity:0,
-      scale:0.5,
-      duration:1.5,
-      stagger:0.3
+        /* Hero Layout Grid */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+        }
 
-    });
+        .content-side {
+            max-width: 540px;
+        }
 
-  </script>
+        .headline {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
 
+        .sub-headline {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-headline::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+        }
+
+        /* Metrics Grid Layout */
+        .metrics-container {
+            display: flex;
+            gap: 48px;
+            margin-top: 20px;
+        }
+
+        .metric-item h3 {
+            font-size: 38px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .metric-item p {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        /* Visual Canvas Side (3D Sphere Layout) */
+        .visual-side {
+            position: relative;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Interactive Abstract Tech Orb */
+        .orb-wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .main-sphere {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, #63e6be 0%, #0077b6 40%, #03045e 100%);
+            border-radius: 50%;
+            box-shadow: inset -20px -20px 50px rgba(0,0,0,0.6),
+                        0 30px 60px rgba(3, 4, 94, 0.25);
+            filter: contrast(1.1);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: absolute;
+            z-index: 2;
+        }
+
+        /* Glass Ribbon Overlay */
+        .glass-ribbon {
+            position: absolute;
+            width: 120%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            z-index: 3;
+            transform: rotate(-30deg);
+            pointer-events: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .orb-wrapper:hover .main-sphere {
+            transform: scale(1.06) rotate(15deg);
+        }
+
+        /* Floating Info Badge Over Image Area */
+        .floating-badge {
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ffffff;
+            padding: 12px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            z-index: 4;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .floating-badge span {
+            color: var(--accent-blue);
+            display: block;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 968px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 60px;
+            }
+            .content-side {
+                margin: 0 auto;
+            }
+            .sub-headline {
+                justify-content: center;
+            }
+            .metrics-container {
+                justify-content: center;
+            }
+            header {
+                margin-bottom: 40px;
+            }
+            nav {
+                display: none; /* Hide standard layout nav on small screen steps */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="workspace-container">
+        <!-- Brand Identity Navigation Area -->
+        <header>
+            <div class="logo-area">
+                <svg width="28" height="28" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#1e293b" stroke-width="8" opacity="0.1"/>
+                    <path d="M 75,42 L 54,42 A 16,16 0 1,1 64,62 L 44,42 M 64,62 L 80,78 A 38,38 0 1,0 80,32" 
+                          fill="none" stroke="#1e293b" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="28" cy="45" r="4" fill="#00b4d8"/>
+                </svg>
+                <div class="logo-text">Guuri<span>x</span></div>
+            </div>
+            
+            <nav>
+                <a href="#" class="active">Product</a>
+                <a href="#">Solutions</a>
+                <a href="#">Pricing</a>
+                <a href="#">Company</a>
+            </nav>
+
+            <button class="cta-btn">Get Started</button>
+        </header>
+
+        <!-- Dynamic Main Stage Hero Layout -->
+        <section class="hero-section">
+            <div class="content-side">
+                <h1 class="headline">Smarter Security Starts Here</h1>
+                <p class="sub-headline">Secure the future. Protect what matters most with intelligent motion architecture.</p>
+                
+                <div class="metrics-container">
+                    <div class="metric-item">
+                        <h3 id="count1">112+</h3>
+                        <p>Enterprise Integrations</p>
+                    </div>
+                    <div class="metric-item">
+                        <h3 id="count2">55K+</h3>
+                        <p>Active Nodes Protected</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conceptual Art Design Canvas Section -->
+            <div class="visual-side">
+                <div class="floating-badge">
+                    <span>Active Core</span>
+                    AI-Driven Infrastructure
+                </div>
+                
+                <div class="orb-wrapper" id="interactive-orb">
+                    <div class="main-sphere"></div>
+                    <div class="glass-ribbon"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Mouse Tracking Script for the Concept Interactive Flow -->
+    <script>
+        const orb = document.getElementById('interactive-orb');
+        
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            
+            if(window.innerWidth > 968) {
+                orb.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
+        // Reset positions smoothly on exit
+        document.addEventListener('mouseleave', () => {
+            orb.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            orb.style.transition = "all 0.5s ease";
+        });
+    </script>
 </body>
 </html>
