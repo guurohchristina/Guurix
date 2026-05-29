@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Zyra UI</title>
+<title>GUURIX</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -225,6 +225,40 @@ body{
   z-index:5;
 }
 
+.tag{
+
+  margin-bottom:24px;
+
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:10px 16px;
+
+  border-radius:999px;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  background:rgba(255,255,255,0.04);
+
+  color:rgba(255,255,255,0.7);
+
+  font-size:.9rem;
+}
+
+.tag-dot{
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--accent);
+
+  box-shadow:
+  0 0 10px rgba(212,255,0,0.8);
+}
+
 .headline{
 
   max-width:760px;
@@ -266,18 +300,29 @@ body{
 
   margin-top:28px;
 
-  max-width:520px;
+  max-width:560px;
 
   color:var(--text-muted);
 
   line-height:1.8;
 
   opacity:.78;
+
+  font-size:1rem;
+}
+
+.actions{
+
+  margin-top:40px;
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+  flex-wrap:wrap;
 }
 
 .secondary-btn{
-
-  margin-top:38px;
 
   display:inline-flex;
   align-items:center;
@@ -290,6 +335,8 @@ body{
   border:1px solid rgba(255,255,255,0.08);
 
   background:rgba(255,255,255,0.05);
+
+  color:white;
 
   cursor:pointer;
 
@@ -308,6 +355,31 @@ body{
   border-radius:50%;
 
   background:white;
+}
+
+.stats{
+
+  margin-top:50px;
+
+  display:flex;
+  gap:50px;
+
+  flex-wrap:wrap;
+}
+
+.stat h2{
+
+  font-size:2rem;
+  font-weight:700;
+}
+
+.stat p{
+
+  margin-top:8px;
+
+  color:var(--text-muted);
+
+  font-size:.95rem;
 }
 
 .right{
@@ -393,6 +465,10 @@ canvas{
     padding:24px;
   }
 
+  .stats{
+    gap:30px;
+  }
+
 }
 
 </style>
@@ -408,22 +484,22 @@ canvas{
 
       <div class="brand-icon"></div>
 
-      <span>Zyra</span>
+      <span>GUURIX</span>
 
     </div>
 
     <div class="nav-links">
 
-      <a href="#">Wallet</a>
-      <a href="#">Feature</a>
-      <a href="#">Token</a>
-      <a href="#">Pricing</a>
-      <a href="#">Community</a>
+      <a href="#">Services</a>
+      <a href="#">Solutions</a>
+      <a href="#">Projects</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
 
     </div>
 
     <button class="cta">
-      Get Started
+      Start Project
     </button>
 
   </nav>
@@ -432,20 +508,56 @@ canvas{
 
     <div class="left">
 
+      <div class="tag">
+
+        <div class="tag-dot"></div>
+
+        FUTURE-READY DIGITAL EXPERIENCES
+
+      </div>
+
       <h1 class="headline" id="headline"></h1>
 
       <p class="description">
-        Secure, lightning fast, and designed for seamless
-        DeFi, NFT, and multi-chain experiences.
+        GUURIX builds futuristic digital products,
+        immersive interfaces, and intelligent web experiences
+        engineered for modern brands, startups, and next-generation businesses.
       </p>
 
-      <button class="secondary-btn">
+      <div class="actions">
 
-        <div class="dot"></div>
+        <button class="cta">
+          Explore GUURIX
+        </button>
 
-        Open App / Direct Demo
+        <button class="secondary-btn">
 
-      </button>
+          <div class="dot"></div>
+
+          View Projects
+
+        </button>
+
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <h2>50+</h2>
+          <p>Creative Solutions</p>
+        </div>
+
+        <div class="stat">
+          <h2>24/7</h2>
+          <p>Innovation Pipeline</p>
+        </div>
+
+        <div class="stat">
+          <h2>100%</h2>
+          <p>Future Focused</p>
+        </div>
+
+      </div>
 
     </div>
 
@@ -464,7 +576,7 @@ canvas{
 <script>
 
 const text =
-"Explore the Next Evolution of Web3 Wallets";
+"Engineering Digital Experiences Beyond Tomorrow";
 
 const headline =
 document.getElementById("headline");
